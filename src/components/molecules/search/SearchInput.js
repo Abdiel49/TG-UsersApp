@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {colors} from '../../../styles/colors';
+import normalize from '../../../helpers/Dimensions/normalize';
 
 const SearchInput = () => {
   const [inputValue, setInputValue] = useState(null);
@@ -52,13 +53,13 @@ const styles = StyleSheet.create({
   },
   textInput: {
     color: colors.white,
-    fontSize: 16,
+    fontSize: normalize(16),
     // backgroundColor: colors.white,
     width: '90%',
   },
   icon: {
     color: colors.white,
-    fontSize: 34,
+    fontSize: normalize(30),
     alignSelf: 'center',
   },
 });

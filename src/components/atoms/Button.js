@@ -2,6 +2,7 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {colors} from '../../styles/colors';
 import TextBase from './TextBase';
+import normalize from '../../helpers/Dimensions/normalize';
 
 const Button = ({label, style, labelStyle}) => {
   return (
@@ -27,6 +28,6 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: normalize(20),
   },
 });

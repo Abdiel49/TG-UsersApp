@@ -1,10 +1,12 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
+import SearchInput from '../components/molecules/search/SearchInput';
+import {colors} from '../styles/colors';
 
 const Home = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Home</Text>
+      <SearchInput />
     </View>
   );
 };
@@ -14,7 +16,7 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
   },
   text: {
     color: '#000',

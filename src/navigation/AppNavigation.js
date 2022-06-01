@@ -17,7 +17,7 @@ const AppNavigation = () => {
         <Stack.Screen
           name={screens.home}
           component={Home}
-          options={{title: 'Home'}}
+          options={{title: 'Home', headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

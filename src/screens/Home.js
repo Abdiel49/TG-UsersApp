@@ -2,11 +2,15 @@ import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import SearchInput from '../components/molecules/search/SearchInput';
 import {colors} from '../styles/colors';
+import Button from '../components/atoms/Button';
 
 const Home = () => {
   return (
     <View style={styles.container}>
       <SearchInput />
+      <View style={styles.putIn}>
+        <Button label="Ingresar" />
+      </View>
     </View>
   );
 };
@@ -18,7 +22,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  text: {
-    color: '#000',
+  putIn: {
+    position: 'absolute',
+    bottom: 15,
+    alignSelf: 'center',
   },
 });

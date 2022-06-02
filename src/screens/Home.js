@@ -30,16 +30,22 @@ const Home = () => {
     return usersAPIData;
   }, []);
 
+  const handleEnter = () => {
+    console.log('user selected id: ', state.userSelectedId);
+    console.log('user selected: ', state.userSelected);
+  };
+
   /* Get data when component is mounted */
-  useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
-      // getData();
-    }
-    return () => {
-      isMounted = false;
-    };
-  }, [getData]);
+  // current disabled because the logic app working
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   if (isMounted) {
+  //     getData();
+  //   }
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, [getData]);
 
   useEffect(() => {
     let isMounted = true;
@@ -66,13 +72,12 @@ const Home = () => {
         initialData={users}
         setFilteredData={setUsersData}
         filterFunction={filterUsers}
-        getData={getData}
-        setLoading={setLoading}
+        requestDataAsync={getData}
       />
       {loading && <LoadingView />}
       <UsersList users={usersData} />
       <View style={styles.putIn}>
-        <Button label="Ingresar" />
+        <Button label="Ingresar" onPress={handleEnter} />
       </View>
     </View>
   );

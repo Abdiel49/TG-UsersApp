@@ -4,11 +4,12 @@ import {colors} from '../../styles/colors';
 import TextBase from './TextBase';
 import normalize from '../../helpers/Dimensions/normalize';
 
-const Button = ({label, style, labelStyle}) => {
+const Button = ({label, style, labelStyle, onPress}) => {
   return (
     <TouchableOpacity
       style={[styles.buttonContainer, style]}
-      activeOpacity={0.65}>
+      activeOpacity={0.65}
+      onPress={onPress}>
       {label && (
         <TextBase style={[styles.buttonLabel, labelStyle]} text={label} />
       )}

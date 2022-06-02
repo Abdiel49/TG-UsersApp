@@ -11,10 +11,10 @@ const SearchInput = ({
   initialData,
   setFilteredData,
   filterFunction,
-  getData,
-  setLoading,
+  requestDataAsync,
 }) => {
   const [inputValue, setInputValue] = useState(null);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const onChange = text => {
     setInputValue(text);
@@ -22,12 +22,13 @@ const SearchInput = ({
 
   const handleSearch = async () => {
     if (inputValue && inputValue.trim().length > 0) {
+      setHasSearched(true);
       const filter = {};
       const isValidEmail = isEmail(inputValue.trim());
       if (isValidEmail) {
         filter.email = inputValue.trim();
       }
-      const dataFromAPI = await getData(filter);
+      const dataFromAPI = await requestDataAsync(filter);
       if (isValidEmail) {
         setFilteredData(dataFromAPI);
       } else {
@@ -39,14 +40,15 @@ const SearchInput = ({
 
   const handleCancelSearch = () => {
     setInputValue(null);
-    setFilteredData(initialData);
+    setFilteredData(initialData || null);
+    setHasSearched(false);
   };
 
   return (
     <View style={styles.container}>
       <Ionicons
         name="ios-close"
-        style={[styles.icon, styles.iconLeft]}
+        style={[styles.icon, styles.iconLeft, !hasSearched && styles.hide]}
         onPress={handleCancelSearch}
       />
       <TextInput
@@ -89,6 +91,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingHorizontal: 5,
     paddingVertical: 5,
+  },
+  hide: {
+    color: colors.primary,
   },
   iconLeft: {
     paddingLeft: 15,

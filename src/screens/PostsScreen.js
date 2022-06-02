@@ -1,0 +1,21 @@
+import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+
+import {colors} from '../styles/colors';
+
+const PostsScreen = () => {
+  return (
+    <View style={styles.container}>
+      <Text>PostsScreen</Text>
+    </View>
+  );
+};
+
+export default PostsScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.background,
+    flex: 1,
+  },
+});

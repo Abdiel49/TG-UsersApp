@@ -1,5 +1,6 @@
 import {StyleSheet, View} from 'react-native';
 import React, {useState, useCallback, useEffect, useContext} from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 import SearchInput from '../components/molecules/search/SearchInput';
 import Button from '../components/atoms/Button';
@@ -11,13 +12,15 @@ import normalize from '../helpers/Dimensions/normalize';
 import {getUserList} from '../api/userServices';
 import {filterUsers} from '../helpers/filters/filterUsers';
 
-import {colors} from '../styles/colors';
 import {appReducerTypes} from '../reducers/appReducerTypes';
+import {screens} from '../navigation/screens';
+import {colors} from '../styles/colors';
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState(null);
   const [usersData, setUsersData] = useState(null);
+  const navigation = useNavigation();
 
   const {state, dispatch} = useContext(AppContext);
 
@@ -33,6 +36,11 @@ const Home = () => {
   const handleEnter = () => {
     console.log('user selected id: ', state.userSelectedId);
     console.log('user selected: ', state.userSelected);
+    navigation.navigate(screens.posts);
+    /**
+     * alternative can send data to another screen using navigation params:
+     * navigation.navigate(screens.posts, {user: state.userSelected});
+     */
   };
 
   /* Get data when component is mounted */

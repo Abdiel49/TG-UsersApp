@@ -34,13 +34,11 @@ const Home = () => {
   }, []);
 
   const handleEnter = () => {
-    console.log('user selected id: ', state.userSelectedId);
-    console.log('user selected: ', state.userSelected);
-    navigation.navigate(screens.posts);
     /**
      * alternative can send data to another screen using navigation params:
      * navigation.navigate(screens.posts, {user: state.userSelected});
      */
+    navigation.navigate(screens.posts);
   };
 
   /* Get data when component is mounted */

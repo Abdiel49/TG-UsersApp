@@ -5,6 +5,7 @@ import ImageView from 'react-native-image-viewing';
 import normalize from '../../helpers/Dimensions/normalize';
 
 const ImageViewComponent = ({
+  thumbnail,
   imageURL,
   imagesArray,
   imageStyle,
@@ -13,6 +14,7 @@ const ImageViewComponent = ({
 }) => {
   const [viewImage, setViewImage] = useState(false);
   const uriImage = {uri: imageURL};
+  const thumbnailImage = {uri: thumbnail};
   const images = imageURL ? [uriImage] : imagesArray;
 
   const onShowImage = () => {
@@ -33,7 +35,10 @@ const ImageViewComponent = ({
         visible={viewImage}
         onRequestClose={onCloseImage}
       />
-      <Image source={uriImage} style={[styles.image, imageStyle]} />
+      <Image
+        source={thumbnail ? thumbnailImage : uriImage}
+        style={[styles.image, imageStyle]}
+      />
     </Pressable>
   );
 };

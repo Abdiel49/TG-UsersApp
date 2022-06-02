@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useState, useCallback, useEffect} from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 import ImageViewComponent from '../atoms/ImageViewComponent';
 
@@ -12,16 +13,17 @@ import {photosServices} from '../../api/photosServices';
 import {colors} from '../../styles/colors';
 import TextBase from '../atoms/TextBase';
 import normalize from '../../helpers/Dimensions/normalize';
+import {screens} from '../../navigation/screens';
 
 const PostItem = ({post}) => {
-  // console.log('post item', post);
   const [loading, setLoading] = useState(true);
   const [photoData, setPhotoData] = useState(null);
+
+  const navigation = useNavigation();
 
   const getPhotoData = useCallback(async () => {
     setLoading(true);
     const photo = await photosServices({postId: post.id});
-    // console.log('request photo data', photo);
     if (photo) {
       setPhotoData(photo[0]);
     }
@@ -38,13 +40,21 @@ const PostItem = ({post}) => {
     };
   }, [getPhotoData]);
 
+  const handlePressPost = () => {
+    navigation.navigate(screens.postDescription, {post, photoData});
+  };
+
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.6}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={0.6}
+      onPress={handlePressPost}>
       {!photoData || loading ? (
         <ActivityIndicator size={'large'} color={colors.acction} />
       ) : (
         <ImageViewComponent
-          imageURL={photoData.thumbnailUrl}
+          thumbnail={photoData.thumbnailUrl}
+          imageURL={photoData.url}
           imageStyle={styles.image}
         />
       )}

@@ -5,6 +5,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 // import screens components
 import Home from '../screens/Home';
 import PostsScreen from '../screens/PostsScreen';
+import PostDescription from '../screens/PostDescription';
+
 // screen names variables
 import {screens} from './screens';
 import {colors} from '../styles/colors';
@@ -35,6 +37,11 @@ const AppNavigation = () => {
           name={screens.posts}
           component={PostsScreen}
           options={{title: 'Posts'}}
+        />
+        <Stack.Screen
+          name={screens.postDescription}
+          component={PostDescription}
+          options={{title: 'Description'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

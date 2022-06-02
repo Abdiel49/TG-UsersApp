@@ -4,6 +4,7 @@ import React, {useContext} from 'react';
 import UserItem from '../molecules/UserItem';
 import Separator from '../atoms/Separator';
 import AppContext from '../../context/AppContext';
+
 import {appReducerTypes} from '../../reducers/appReducerTypes';
 import normalize from '../../helpers/Dimensions/normalize';
 

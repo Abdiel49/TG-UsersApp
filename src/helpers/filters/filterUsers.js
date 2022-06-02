@@ -1,5 +1,4 @@
 export const filterUsers = (users, text) => {
-  console.log('users and text to filter', users, text);
   const searchText = text.trim().toLowerCase();
   if (!searchText) {
     return users;

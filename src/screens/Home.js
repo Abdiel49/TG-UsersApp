@@ -1,40 +1,64 @@
 import {StyleSheet, View} from 'react-native';
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useEffect, useContext} from 'react';
 
 import SearchInput from '../components/molecules/search/SearchInput';
 import Button from '../components/atoms/Button';
 import LoadingView from '../components/atoms/LoadingView';
 import UsersList from '../components/organisms/UsersList';
+import AppContext from '../context/AppContext';
 
+import normalize from '../helpers/Dimensions/normalize';
 import {getUserList} from '../api/userServices';
+import {filterUsers} from '../helpers/filters/filterUsers';
 
 import {colors} from '../styles/colors';
-import normalize from '../helpers/Dimensions/normalize';
-import {filterUsers} from '../helpers/filters/filterUsers';
+import {appReducerTypes} from '../reducers/appReducerTypes';
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState(null);
   const [usersData, setUsersData] = useState(null);
 
-  const getData = useCallback(async () => {
+  const {state, dispatch} = useContext(AppContext);
+
+  const getData = useCallback(async filter => {
     setLoading(true);
-    const usersAPIData = await getUserList();
-    console.log('users from api', usersAPIData);
+    const usersAPIData = await getUserList(filter);
     setUsers(usersAPIData);
     setUsersData(usersAPIData);
     setLoading(false);
+    return usersAPIData;
   }, []);
 
+  /* Get data when component is mounted */
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      getData();
+      // getData();
     }
     return () => {
       isMounted = false;
     };
   }, [getData]);
+
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      if (usersData && usersData.length > 0) {
+        const user = usersData[0];
+        if (state.userSelectedId !== user.id) {
+          dispatch({type: appReducerTypes.SET_USER_SELECTED, payload: user});
+          dispatch({
+            type: appReducerTypes.SET_USER_SELECTED_ID,
+            payload: user.id,
+          });
+        }
+      }
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [usersData, dispatch, state.userSelectedId]);
 
   return (
     <View style={styles.container}>
@@ -42,6 +66,8 @@ const Home = () => {
         initialData={users}
         setFilteredData={setUsersData}
         filterFunction={filterUsers}
+        getData={getData}
+        setLoading={setLoading}
       />
       {loading && <LoadingView />}
       <UsersList users={usersData} />

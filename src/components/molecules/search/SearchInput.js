@@ -4,12 +4,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {colors} from '../../../styles/colors';
 import normalize from '../../../helpers/Dimensions/normalize';
+import {isEmail} from '../../../utils/validations';
 
 const SearchInput = ({
   placeholder,
   initialData,
   setFilteredData,
   filterFunction,
+  getData,
+  setLoading,
 }) => {
   const [inputValue, setInputValue] = useState(null);
 
@@ -17,10 +20,20 @@ const SearchInput = ({
     setInputValue(text);
   };
 
-  const handleSearch = () => {
-    if (inputValue) {
-      const usersFilteresd = filterFunction(initialData, inputValue);
-      setFilteredData(usersFilteresd);
+  const handleSearch = async () => {
+    if (inputValue && inputValue.trim().length > 0) {
+      const filter = {};
+      const isValidEmail = isEmail(inputValue.trim());
+      if (isValidEmail) {
+        filter.email = inputValue.trim();
+      }
+      const dataFromAPI = await getData(filter);
+      if (isValidEmail) {
+        setFilteredData(dataFromAPI);
+      } else {
+        const usersFilteresd = filterFunction(dataFromAPI, inputValue);
+        setFilteredData(usersFilteresd);
+      }
     }
   };
 

@@ -7,8 +7,8 @@ import normalize from '../../helpers/Dimensions/normalize';
 const ImageViewComponent = ({
   imageURL,
   imagesArray,
-  styleImage,
-  styleContainer,
+  imageStyle,
+  containerStyle,
   fullShow = true,
 }) => {
   const [viewImage, setViewImage] = useState(false);
@@ -26,14 +26,14 @@ const ImageViewComponent = ({
   };
 
   return (
-    <Pressable onPress={onShowImage}>
+    <Pressable onPress={onShowImage} style={containerStyle}>
       <ImageView
         images={images}
         imageIndex={0}
         visible={viewImage}
         onRequestClose={onCloseImage}
       />
-      <Image source={uriImage} style={styles.image} />
+      <Image source={uriImage} style={[styles.image, imageStyle]} />
     </Pressable>
   );
 };

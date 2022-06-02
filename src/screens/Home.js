@@ -40,25 +40,12 @@ const Home = () => {
      * alternative can send data to another screen using navigation params:
      * navigation.navigate(screens.posts, {user: state.userSelected});
      */
-    // if (state && state.userSelectedId) {
-    //   navigation.navigate(screens.posts);
-    // } else {
-    // }
-    toast.show('Select a user to see posts', {type: 'warning'});
-    // navigation.navigate(screens.posts);
+    if (state && state.userSelectedId) {
+      navigation.navigate(screens.posts);
+    } else {
+      toast.show('Select a user to see posts', {type: 'warning'});
+    }
   };
-
-  /* Get data when component is mounted */
-  // current disabled because the logic app working
-  // useEffect(() => {
-  //   let isMounted = true;
-  //   if (isMounted) {
-  //     getData();
-  //   }
-  //   return () => {
-  //     isMounted = false;
-  //   };
-  // }, [getData]);
 
   useEffect(() => {
     let isMounted = true;

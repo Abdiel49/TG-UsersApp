@@ -1,8 +1,10 @@
 import {View, SafeAreaView, FlatList} from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 
 import UserItem from '../molecules/UserItem';
 import Separator from '../atoms/Separator';
+import AppContext from '../../context/AppContext';
+import {appReducerTypes} from '../../reducers/appReducerTypes';
 
 const mockdata = [
   {
@@ -54,8 +56,32 @@ const mockdata = [
 ];
 
 const UsersList = ({users}) => {
+  const {state, dispatch} = useContext(AppContext);
+  const {userSelectedId} = state;
+  const onSelectUser = user => {
+    if (user && user.id) {
+      if (user.id !== userSelectedId) {
+        dispatch({type: appReducerTypes.SET_USER_SELECTED, payload: user});
+        dispatch({
+          type: appReducerTypes.SET_USER_SELECTED_ID,
+          payload: user.id,
+        });
+      } else {
+        dispatch({type: appReducerTypes.SET_USER_SELECTED, payload: null});
+        dispatch({type: appReducerTypes.SET_USER_SELECTED_ID, payload: null});
+      }
+    }
+  };
+
   const renderItem = ({item}) => {
-    return <UserItem key={item.id} userData={item} />;
+    return (
+      <UserItem
+        key={item.id}
+        userData={item}
+        idSelected={userSelectedId}
+        onSelectUser={onSelectUser}
+      />
+    );
   };
 
   return (

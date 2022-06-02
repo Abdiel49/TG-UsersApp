@@ -1,32 +1,35 @@
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 
 import {colors} from '../../styles/colors';
 import TextBase from '../atoms/TextBase';
 import normalize from '../../helpers/Dimensions/normalize';
 
-const UserItem = ({userData}) => {
-  const [selected, setSelected] = useState(false);
-  const {id, name, username, email, address, phone, website, company} =
-    userData;
-
-  const onSelectUser = () => {
-    setSelected(!selected);
-    // console.log({id, name, username, email, address, phone, website, company});
+const UserItem = ({userData, idSelected, onSelectUser}) => {
+  /**
+   * It's a function that takes in a userData object and returns a function that calls the onSelectUser
+   * function with the userData object as an argument
+   */
+  const handleSelectUser = () => {
+    onSelectUser(userData);
   };
+
+  /* Checking if the idSelected user is equal to the id of the user. */
+  const isSelected = idSelected && idSelected === userData.id;
+
   return (
     <TouchableOpacity
-      style={[styles.container, selected && styles.selected]}
+      style={[styles.container, isSelected && styles.selected]}
       activeOpacity={0.8}
-      onPress={onSelectUser}>
+      onPress={handleSelectUser}>
       <View style={styles.row}>
-        <TextBase text={name} style={styles.title} />
+        <TextBase text={userData.name} style={styles.title} />
       </View>
       <View style={styles.row}>
         <TextBase text={'Email: '} />
-        <TextBase text={email} />
+        <TextBase text={userData.email} />
         <TextBase text={'\t|\t'} style={styles.separator} />
-        <TextBase text={website} />
+        <TextBase text={userData.website} />
       </View>
     </TouchableOpacity>
   );

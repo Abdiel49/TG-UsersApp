@@ -6,8 +6,9 @@ import AppContext from '../context/AppContext';
 
 const PostsScreen = () => {
   const {state} = useContext(AppContext);
-  console.log('posts cliente selected id: ', state.userSelectedId);
-  console.log('posts cliente selected: ', state.userSelected);
+  const {userSelectedId = 8} = state;
+  console.log('posts cliente selected id: ', userSelectedId);
+  // console.log('posts cliente selected: ', userSelected);
   return (
     <View style={styles.container}>
       <Text>PostsScreen</Text>

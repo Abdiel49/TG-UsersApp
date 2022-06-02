@@ -27,6 +27,7 @@ const AppNavigation = () => {
           },
           headerTintColor: colors.white,
           headerTitleAlign: 'center',
+          headerShadowVisible: false,
         }}>
         <Stack.Screen
           name={screens.home}
@@ -41,7 +42,7 @@ const AppNavigation = () => {
         <Stack.Screen
           name={screens.postDescription}
           component={PostDescription}
-          options={{title: 'Description'}}
+          options={{title: '', headerTransparent: true}}
         />
       </Stack.Navigator>
     </NavigationContainer>

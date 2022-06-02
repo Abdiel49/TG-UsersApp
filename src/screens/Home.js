@@ -1,6 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import React, {useState, useCallback, useEffect, useContext} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {useToast} from 'react-native-toast-notifications';
 
 import SearchInput from '../components/molecules/search/SearchInput';
 import Button from '../components/atoms/Button';
@@ -20,8 +21,9 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState(null);
   const [usersData, setUsersData] = useState(null);
-  const navigation = useNavigation();
 
+  const navigation = useNavigation();
+  const toast = useToast();
   const {state, dispatch} = useContext(AppContext);
 
   const getData = useCallback(async filter => {
@@ -38,7 +40,12 @@ const Home = () => {
      * alternative can send data to another screen using navigation params:
      * navigation.navigate(screens.posts, {user: state.userSelected});
      */
-    navigation.navigate(screens.posts);
+    // if (state && state.userSelectedId) {
+    //   navigation.navigate(screens.posts);
+    // } else {
+    // }
+    toast.show('Select a user to see posts', {type: 'warning'});
+    // navigation.navigate(screens.posts);
   };
 
   /* Get data when component is mounted */

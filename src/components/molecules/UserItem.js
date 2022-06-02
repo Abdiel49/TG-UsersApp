@@ -24,12 +24,12 @@ const UserItem = ({userData, idSelected, onSelectUser}) => {
       onPress={handleSelectUser}>
       <View style={styles.row}>
         <TextBase text={userData.name} style={styles.title} />
+        {/* <TextBase text={'\t|\t'} style={styles.separator} />
+        <TextBase text={userData.username} /> */}
       </View>
       <View style={styles.row}>
         <TextBase text={'Email: '} />
         <TextBase text={userData.email} />
-        <TextBase text={'\t|\t'} style={styles.separator} />
-        <TextBase text={userData.website} />
       </View>
     </TouchableOpacity>
   );
@@ -51,9 +51,10 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
+    // justifyContent: 'space-around',
   },
   separator: {
-    marginHorizontal: 10,
+    marginHorizontal: 5,
   },
   title: {
     fontWeight: 'bold',

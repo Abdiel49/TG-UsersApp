@@ -1,59 +1,11 @@
-import {View, SafeAreaView, FlatList} from 'react-native';
+import {View, SafeAreaView, FlatList, StyleSheet} from 'react-native';
 import React, {useContext} from 'react';
 
 import UserItem from '../molecules/UserItem';
 import Separator from '../atoms/Separator';
 import AppContext from '../../context/AppContext';
 import {appReducerTypes} from '../../reducers/appReducerTypes';
-
-const mockdata = [
-  {
-    id: 1,
-    name: 'Leanne Graham',
-    username: 'Bret',
-    email: 'Sincere@april.biz',
-    address: {
-      street: 'Kulas Light',
-      suite: 'Apt. 556',
-      city: 'Gwenborough',
-      zipcode: '92998-3874',
-      geo: {
-        lat: '-37.3159',
-        lng: '81.1496',
-      },
-    },
-    phone: '1-770-736-8031 x56442',
-    website: 'hildegard.org',
-    company: {
-      name: 'Romaguera-Crona',
-      catchPhrase: 'Multi-layered client-server neural-net',
-      bs: 'harness real-time e-markets',
-    },
-  },
-  {
-    id: 2,
-    name: 'Leanne Graham',
-    username: 'Bret',
-    email: 'Sincere@april.biz',
-    address: {
-      street: 'Kulas Light',
-      suite: 'Apt. 556',
-      city: 'Gwenborough',
-      zipcode: '92998-3874',
-      geo: {
-        lat: '-37.3159',
-        lng: '81.1496',
-      },
-    },
-    phone: '1-770-736-8031 x56442',
-    website: 'hildegard.org',
-    company: {
-      name: 'Romaguera-Crona',
-      catchPhrase: 'Multi-layered client-server neural-net',
-      bs: 'harness real-time e-markets',
-    },
-  },
-];
+import normalize from '../../helpers/Dimensions/normalize';
 
 const UsersList = ({users}) => {
   const {state, dispatch} = useContext(AppContext);
@@ -85,13 +37,16 @@ const UsersList = ({users}) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <SafeAreaView>
         <FlatList
-          data={users || mockdata}
+          data={users}
           renderItem={renderItem}
           initialNumToRender={10}
           ItemSeparatorComponent={Separator}
+          ListFooterComponent={Separator}
+          ListFooterComponentStyle={styles.listBottomMargin}
+          style={styles.list}
         />
       </SafeAreaView>
     </View>
@@ -99,3 +54,16 @@ const UsersList = ({users}) => {
 };
 
 export default UsersList;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  list: {
+    paddingHorizontal: 20,
+    // marginBottom: 50,
+  },
+  listBottomMargin: {
+    marginBottom: normalize(50),
+  },
+});

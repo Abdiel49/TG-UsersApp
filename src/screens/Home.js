@@ -10,23 +10,26 @@ import {getUserList} from '../api/userServices';
 
 import {colors} from '../styles/colors';
 import normalize from '../helpers/Dimensions/normalize';
+import {filterUsers} from '../helpers/filters/filterUsers';
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState(null);
+  const [usersData, setUsersData] = useState(null);
 
   const getData = useCallback(async () => {
     setLoading(true);
-    const usersData = await getUserList();
-    console.log('users from api', usersData);
-    setUsers(usersData);
+    const usersAPIData = await getUserList();
+    console.log('users from api', usersAPIData);
+    setUsers(usersAPIData);
+    setUsersData(usersAPIData);
     setLoading(false);
   }, []);
 
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      // getData();
+      getData();
     }
     return () => {
       isMounted = false;
@@ -35,11 +38,13 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <SearchInput />
+      <SearchInput
+        initialData={users}
+        setFilteredData={setUsersData}
+        filterFunction={filterUsers}
+      />
       {loading && <LoadingView />}
-      <View style={styles.usersContent}>
-        <UsersList users={users} />
-      </View>
+      <UsersList users={usersData} />
       <View style={styles.putIn}>
         <Button label="Ingresar" />
       </View>
@@ -58,8 +63,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: normalize(15),
     alignSelf: 'center',
-  },
-  usersContent: {
-    marginHorizontal: normalize(20),
   },
 });

@@ -2,13 +2,7 @@
 
 This is a mobile aplication development with React Native.
 
-<form 
-  action="https://drive.google.com/file/d/1vAdmtxqEF5vUl0mYdT-4jmUh57TCyrsV/view?usp=sharing" 
-  method="get" 
-  target="_blank">
-    <button type="submit">Download App APK</button>
-</form>
-
+Click [here](https://drive.google.com/drive/folders/1_hDP0wTKvZlYN4tDPPmyNSWdLtDPOsen?usp=sharing) to download APK
 ## Get started
 
 ### Run project
@@ -123,3 +117,7 @@ sdk.dir = /home/smog/Android/Sdk
 ### deprecate gradle version on build
 
 `react-native-screens` have some conflict with the `classpath` or `gradle`,  see this [issue](https://github.com/software-mansion/react-native-screens/issues/1449)
+
+**App Icon**
+
+<a href='https://www.freepik.es/vectores/logos-letras'>Vector de logos con letras creado por sentavio - www.freepik.es</a>

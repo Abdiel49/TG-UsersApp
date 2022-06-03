@@ -12,6 +12,7 @@ const SearchInput = ({
   setFilteredData,
   filterFunction,
   requestDataAsync,
+  onCancelSearch,
 }) => {
   const [inputValue, setInputValue] = useState(null);
   const [hasSearched, setHasSearched] = useState(false);
@@ -41,6 +42,7 @@ const SearchInput = ({
   const handleCancelSearch = () => {
     setInputValue(null);
     setFilteredData(initialData || null);
+    onCancelSearch && onCancelSearch();
     setHasSearched(false);
   };
 

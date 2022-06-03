@@ -19,8 +19,7 @@ const PostsScreen = () => {
   const requestPostsByUserId = useCallback(async () => {
     setLoading(true);
     const response = await postsServices({userId: userSelectedId});
-    const data = await response.json();
-    setPosts(data);
+    setPosts(response);
     setLoading(false);
   }, [userSelectedId]);
 

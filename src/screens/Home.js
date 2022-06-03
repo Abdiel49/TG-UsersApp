@@ -43,21 +43,29 @@ const Home = () => {
     if (state && state.userSelectedId) {
       navigation.navigate(screens.posts);
     } else {
-      toast.show('Select a user to see posts', {type: 'warning'});
+      toast.show('Search a user by email to see posts', {type: 'warning'});
     }
+  };
+
+  const onCancelSearch = () => {
+    dispatch({type: appReducerTypes.DELETE_USER_SELECTED});
+    setUsers(null);
+    setUsersData(null);
   };
 
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
       if (usersData && usersData.length > 0) {
-        const user = usersData[0];
-        if (state.userSelectedId !== user.id) {
-          dispatch({type: appReducerTypes.SET_USER_SELECTED, payload: user});
-          dispatch({
-            type: appReducerTypes.SET_USER_SELECTED_ID,
-            payload: user.id,
-          });
+        if (!state.userSelectedId) {
+          const user = usersData[0];
+          if (state.userSelectedId !== user.id) {
+            dispatch({type: appReducerTypes.SET_USER_SELECTED, payload: user});
+            dispatch({
+              type: appReducerTypes.SET_USER_SELECTED_ID,
+              payload: user.id,
+            });
+          }
         }
       }
     }
@@ -73,11 +81,16 @@ const Home = () => {
         setFilteredData={setUsersData}
         filterFunction={filterUsers}
         requestDataAsync={getData}
+        onCancelSearch={onCancelSearch}
       />
       {loading && <LoadingView />}
       <UsersList users={usersData} />
       <View style={styles.putIn}>
-        <Button label="Ingresar" onPress={handleEnter} />
+        <Button
+          style={!state.userSelectedId && styles.actionOpacity}
+          label="Ingresar"
+          onPress={handleEnter}
+        />
       </View>
     </View>
   );
@@ -94,5 +107,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: normalize(15),
     alignSelf: 'center',
+  },
+  actionOpacity: {
+    backgroundColor: colors.acctionOpacity,
   },
 });

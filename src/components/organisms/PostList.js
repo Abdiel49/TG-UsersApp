@@ -24,6 +24,6 @@ export default PostList;
 
 const styles = StyleSheet.create({
   flatList: {
-    marginHorizontal: 20,
+    paddingHorizontal: 20,
   },
 });

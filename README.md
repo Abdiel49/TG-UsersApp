@@ -2,13 +2,7 @@
 
 This is a mobile aplication development with React Native.
 
-<form 
-  action="https://drive.google.com/file/d/1vAdmtxqEF5vUl0mYdT-4jmUh57TCyrsV/view?usp=sharing" 
-  method="get" 
-  target="_blank">
-    <button type="submit">Download App APK</button>
-</form>
-
+Click [here](https://drive.google.com/file/d/1vAdmtxqEF5vUl0mYdT-4jmUh57TCyrsV/view?usp=sharing) to download APK
 ## Get started
 
 ### Run project

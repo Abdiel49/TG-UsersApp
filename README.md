@@ -2,7 +2,7 @@
 
 This is a mobile aplication development with React Native.
 
-Click [here](https://drive.google.com/file/d/1vAdmtxqEF5vUl0mYdT-4jmUh57TCyrsV/view?usp=sharing) to download APK
+Click [here](https://drive.google.com/drive/folders/1_hDP0wTKvZlYN4tDPPmyNSWdLtDPOsen?usp=sharing) to download APK
 ## Get started
 
 ### Run project

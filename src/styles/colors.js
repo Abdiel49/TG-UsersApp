@@ -4,6 +4,7 @@ export const colors = {
   background: '#112B3C',
   backgroundOpacity: 'rgba(17, 43, 60, 0.8)',
   acction: '#F66B0E',
+  acctionOpacity: 'rgba(246, 107, 14, 0.5)',
   white: '#EFEFEF',
   grey: '#D8D8D8',
 };

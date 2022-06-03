@@ -1,5 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import React, {useState, useCallback, useEffect, useContext} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {useToast} from 'react-native-toast-notifications';
 
 import SearchInput from '../components/molecules/search/SearchInput';
 import Button from '../components/atoms/Button';
@@ -11,14 +13,17 @@ import normalize from '../helpers/Dimensions/normalize';
 import {getUserList} from '../api/userServices';
 import {filterUsers} from '../helpers/filters/filterUsers';
 
-import {colors} from '../styles/colors';
 import {appReducerTypes} from '../reducers/appReducerTypes';
+import {screens} from '../navigation/screens';
+import {colors} from '../styles/colors';
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState(null);
   const [usersData, setUsersData] = useState(null);
 
+  const navigation = useNavigation();
+  const toast = useToast();
   const {state, dispatch} = useContext(AppContext);
 
   const getData = useCallback(async filter => {
@@ -31,33 +36,36 @@ const Home = () => {
   }, []);
 
   const handleEnter = () => {
-    console.log('user selected id: ', state.userSelectedId);
-    console.log('user selected: ', state.userSelected);
+    /**
+     * alternative can send data to another screen using navigation params:
+     * navigation.navigate(screens.posts, {user: state.userSelected});
+     */
+    if (state && state.userSelectedId) {
+      navigation.navigate(screens.posts);
+    } else {
+      toast.show('Search a user by email to see posts', {type: 'warning'});
+    }
   };
 
-  /* Get data when component is mounted */
-  // current disabled because the logic app working
-  // useEffect(() => {
-  //   let isMounted = true;
-  //   if (isMounted) {
-  //     getData();
-  //   }
-  //   return () => {
-  //     isMounted = false;
-  //   };
-  // }, [getData]);
+  const onCancelSearch = () => {
+    dispatch({type: appReducerTypes.DELETE_USER_SELECTED});
+    setUsers(null);
+    setUsersData(null);
+  };
 
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
       if (usersData && usersData.length > 0) {
-        const user = usersData[0];
-        if (state.userSelectedId !== user.id) {
-          dispatch({type: appReducerTypes.SET_USER_SELECTED, payload: user});
-          dispatch({
-            type: appReducerTypes.SET_USER_SELECTED_ID,
-            payload: user.id,
-          });
+        if (!state.userSelectedId) {
+          const user = usersData[0];
+          if (state.userSelectedId !== user.id) {
+            dispatch({type: appReducerTypes.SET_USER_SELECTED, payload: user});
+            dispatch({
+              type: appReducerTypes.SET_USER_SELECTED_ID,
+              payload: user.id,
+            });
+          }
         }
       }
     }
@@ -73,11 +81,16 @@ const Home = () => {
         setFilteredData={setUsersData}
         filterFunction={filterUsers}
         requestDataAsync={getData}
+        onCancelSearch={onCancelSearch}
       />
       {loading && <LoadingView />}
       <UsersList users={usersData} />
       <View style={styles.putIn}>
-        <Button label="Ingresar" onPress={handleEnter} />
+        <Button
+          style={!state.userSelectedId && styles.actionOpacity}
+          label="Ingresar"
+          onPress={handleEnter}
+        />
       </View>
     </View>
   );
@@ -94,5 +107,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: normalize(15),
     alignSelf: 'center',
+  },
+  actionOpacity: {
+    backgroundColor: colors.acctionOpacity,
   },
 });

@@ -11,6 +11,7 @@ import normalize from '../../helpers/Dimensions/normalize';
 const UsersList = ({users}) => {
   const {state, dispatch} = useContext(AppContext);
   const {userSelectedId} = state;
+
   const onSelectUser = user => {
     if (user && user.id) {
       if (user.id !== userSelectedId) {

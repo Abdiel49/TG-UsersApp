@@ -1,4 +1,4 @@
-const BASE_API_URL = 'https://jsonplaceholder.typicode.com/';
+import {BASE_API_URL} from '@env';
 
 const _defaultFilter = {
   email: null,

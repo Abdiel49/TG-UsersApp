@@ -117,3 +117,7 @@ sdk.dir = /home/smog/Android/Sdk
 ### deprecate gradle version on build
 
 `react-native-screens` have some conflict with the `classpath` or `gradle`,  see this [issue](https://github.com/software-mansion/react-native-screens/issues/1449)
+
+**App Icon**
+
+<a href='https://www.freepik.es/vectores/logos-letras'>Vector de logos con letras creado por sentavio - www.freepik.es</a>
